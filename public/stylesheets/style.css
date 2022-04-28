@@ -6,3 +6,53 @@ body {
 a {
   color: #00b7ff;
 }
+.button1{
+  background-color: violet;
+}
+table{
+  border-collapse: separate;
+  border-spacing: 0px 5px;
+  margin: 3px auto;
+   margin-left: 300px;
+  margin-right: 150px;
+}
+td,th{
+  padding: 10px;
+}
+th{
+  background: #10a0e0;
+  color: #fff;
+}
+td{
+  background: #f1fafe;
+}
+button.btn-border {
+  color: #000;
+  background-color: #7ed8ef;
+  border-bottom: 5px solid #7ed8ef;
+}
+
+.btn-border:hover {
+  margin-top: 3px;
+  color: #000;
+  background: 7ed8efa;
+  border-bottom: 2px solid 7ed8ef;
+}
+.btn-border {
+  color: #000;
+  background-color: #7ed8ef;
+  border-bottom: 5px solid #7ed8ef;
+}
+
+.btn-border:hover {
+  margin-top: 3px;
+  color: #000;
+  background: 7ed8efa;
+  border-bottom: 2px solid 7ed8ef;
+}
+
+.task_table{
+ padding-left: 500px;
+ 
+}
+

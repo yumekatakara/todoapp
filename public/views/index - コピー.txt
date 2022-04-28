@@ -53,7 +53,7 @@
         </button>
       </div>
       
-      <form id="create-form" align="center">
+      <form id="create-form">
         タスク
         <br><input type=text  name="task" id="task">
       <br>期限
@@ -87,7 +87,7 @@
 
   タスク
 </h4>
-
+</div>
 
 <!--検索フォーム-->
 <form action="#" id="form-search" >
@@ -102,14 +102,65 @@
     
    
   </form>
-</div>
-<br>
 
 
-  <ul id="task-list" class="task_table" ></ul>
+<!--タスク表示するメソッド-->
+<!--<form name="task_table">
+  <table>
+    <tr><th>タスク名</th><th>期限</th><th>カテゴリ</th><th>　</th><th>　</th></tr>
+    <tr><td>買い物に行く</td><td>2022/5/13</td><td>完了済み</td>
+    <td>
+      <button type="button" class="btn btn-border" data-toggle="modal"data-target="#exampleModal2" >更新</button>-->
+    
+      <!-- Modal 更新の編集画面 -->
+    <!--<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+       <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+      <h5 class="modal-updata" id="exampleModalLabel2"> タスクの編集</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      タスク
+      <br><input type=text class="task_name">
+    <br>期限
+      <br><input type=date class="task_date" >
+      <br>カテゴリ
+      <br><select name="category"  value="">
+        <option value="生活">生活</option>
+        <option value="勉強">勉強</option>
+        <option value="仕事">仕事</option>
+        <option value="趣味">趣味</option>
+        </select>
+        <br>ステータス
+      <br><select name="status" value="--">
+        <option value="取り組み予定">取り組み予定</option>
+        <option value="進行中">進行中</option>
+        <option value="完了済み" >完了済み</option>
+        
+        </select>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">戻る</button>
+        <button type="button" class="btn btn-primary">保存する</button>
+        <!--fin-->
+
+    </td>
+      
+    <!--削除処理-->
+    <!--<td><input type="submit" class="btn btn-border" value="削除" name="delete" onclick="clicked(this.form)"></td></tr>
+    
+  
+  </table>
+</form>-->
+
+  <ul id="task-list"></ul>
   
   <!--更新処理-->
-  <div class="update-form" id="update-form" style="display: none" align="center"> 
+  <div class="update-form" id="update-form" style="display: none"> 
     <form>
       <input type="hidden" name="id" />
       <label for ="task">タスク名</label>
@@ -131,8 +182,8 @@
           </select>
           </form>
 
-      <button class="btn btn-border">キャンセル</button>
-      <button class="btn btn-border" id="update-task"> 保存</button>
+      <button class="display-none">キャンセル</button>
+      <button class="display-none" id="update-task"> 保存</button>
       </div>
 
 
@@ -164,18 +215,16 @@
 
           });
 
+          //検索ボタンを押したとき
+          $("#category-search").on("click", async function(){
+            const number =  $("#form-search select[name=search-category]" ).val();
+            console.log(number);
+          });
 
           //削除ボタンのアラート
           function clicked(form){
           alert("本当に削除しますか？" );
-          }  
-          
-          //検索ボタンを押したとき
-          $("#category-search").on("click", async function(){
-            const number =  $("#form-search select[name=search-category]" ).val();
-            
-
-          });
+          }
 
           //タスク一覧取得
           $(async function () {
@@ -183,7 +232,6 @@
             const response = await httpGet(
               "//"+ window.location.host + "/api/tasks"
             );
-           
 
             const list = response.map((item) => {
               const date = new Date(item.deadline);
@@ -192,10 +240,9 @@
              const day = ("0" + date.getDate()).slice(-2);
              const deadlineVal = `${year}年${month}月${day}日`;
 
-             
+             `<table><tr><th>タスク名</th><th>期限</th><th>カテゴリ</th><th>　</th><th>　</th>`
               //リストを表示
-              return `<tr><td>${item.task_name}</td><td>${deadlineVal}</td> <td>${item.category_name}</td><td>${item.check}</td>
-                <td><button id="update-button" data-id=${item.id} class="btn btn-border">更新</button></td><td><button id="delete-button" data-id=${item.id} data-delete=${item.task_name} class="btn btn-border">削除</button></td></tr></table></div>`;
+              return `</tr><tr><td>${item.task_name}</td><td>${deadlineVal}</td> <td>${item.category_name}</td><td><button id="update-button" data-id=${item.id} class="btn btn-border">更新</button></td><td><button id="delete-button" data-id=${item.id} data-delete=${item.task_name} class="btn btn-border">削除</button></td></tr> </table>`;
 
             });
 
@@ -264,7 +311,6 @@
             }
           });
 
-       
           </script>
           
 
@@ -287,15 +333,6 @@
           integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
           crossorigin="anonymous"
         ></script>
-
-
-        <script>
-          
-
-
-
-
-          </script>
 
           
 
